@@ -10,17 +10,11 @@ if no_of_questions < 1
   puts "Make sure you enter a number greater than 0"
 end
 
-totalrows=0
 questions=Array.new
 
 CSV.foreach('questions.csv') do |row|
-  totalrows=totalrows+1
   questions.push row
-  #puts row.inspect
-  #puts row[0]
 end
-
-#puts "Parsed " + totalrows.to_s + " questions"
 
 last_strand_asked=0
 
@@ -34,4 +28,6 @@ for i in 1..no_of_questions do
   end
   puts "Asking question number: " + questions[question_to_ask][4]
   last_strand_asked = questions[question_to_ask][0]
+  # remove the question from the array so we don't ask the same questions over and over
+  questions.delete_at(question_to_ask)
 end
